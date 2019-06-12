@@ -5,8 +5,9 @@ class DAKScreen:
         self.tk = tk.Tk()
         self.tk.title("DAK_scriptet")
         self.tk.attributes("-fullscreen", True)
-        self.frame = tk.Frame(self.tk)
-        self.frame.pack(fill=tk.BOTH, expand=1)
+        self.tk.config(cursor="none")
+        self.canvas = tk.Canvas(self.tk, highlightthickness=0, bg="blue")
+        self.canvas.pack(fill=tk.BOTH, expand=1)
         self.tk.bind("<Escape>", self.quit)
 
     def quit(self, event=None):
