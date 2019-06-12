@@ -2,6 +2,7 @@ import tkinter as tk
 import json
 import os
 import time
+import random
 
 class DAKScreen:
     def __init__(self):
@@ -23,17 +24,31 @@ class DAKScreen:
         self.canvas.config(bg="#FF0000")
 
     def changeColor(self):
-        self.canvas.config(bg="#0000FF")
+        if self.settings["randomColors"]:
+            self.canvas.config(
+                bg=self.settings["colors"][random.randint(0, len(self.settings["colors"]) - 1)]
+            )
+        else:
+            self.canvas.config(
+                bg=self.settings["colors"][self.currentColor]
+            )
+            if self.currentColor >= len(self.settings["colors"]) - 1:
+                self.currentColor = 0
+            else:
+                self.currentColor += 1
 
     def setStandardSettings(self):
         # Standard settings.
         settings = {
-            "FPS": 5,
+            "FPS": 15,
             "randomColors": False,
             "colors": [
                 "#ff0000",
                 "#00ff00",
-                "#0000ff"
+                "#0000ff",
+                "#ffff00",
+                "#00ffff",
+                "#ff00ff"
             ]
         }
         # Write to file.
