@@ -1,11 +1,16 @@
 import tkinter as tk
 import json
 import os
+import time
 
 class DAKScreen:
     def __init__(self):
         self.settingsJSONPath = "./settings.json"
         self.settings = self.getSettings()
+
+        self.timeBetweenFrames = 1 / self.settings["FPS"]
+        self.timeNextFrame = time.time()
+        self.currentColor = 0   # This is needed to loop though colors if random colors is not used.
 
         self.tk = tk.Tk()
         self.tk.title("DAK_scriptet")
@@ -17,7 +22,8 @@ class DAKScreen:
 
         self.canvas.config(bg="#FF0000")
 
-        self.tk.mainloop()
+    def changeColor(self):
+        self.canvas.config(bg="#0000FF")
 
     def setStandardSettings(self):
         # Standard settings.
@@ -51,3 +57,9 @@ class DAKScreen:
 
 if __name__ == '__main__':
     window = DAKScreen()
+    while True:
+        window.tk.update_idletasks()
+        window.tk.update()
+        if (time.time() > window.timeNextFrame):
+            window.changeColor()
+            window.timeNextFrame = time.time() + window.timeBetweenFrames
