@@ -12,9 +12,10 @@ class DAKScreen:
 
         self.canvas.config(bg="#FF0000")
 
+        self.tk.mainloop()
+
     def quit(self, event=None):
         self.tk.destroy()
 
 if __name__ == '__main__':
     window = DAKScreen()
-    window.tk.mainloop()
